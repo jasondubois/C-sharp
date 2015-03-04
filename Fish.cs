@@ -60,7 +60,15 @@ namespace Lab3
             }
             set
             {
-                m_TotalLength = value;
+                if(value == 0 || (value >= 100 && value <= 200))
+                {
+                    m_TotalLength = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Length must be either 0 (no length) or " +
+                        "between 100 and 200", "TotalLength");
+                } 
             }
         }
 
