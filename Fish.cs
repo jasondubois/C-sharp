@@ -6,7 +6,7 @@ Assignment: 3, Working with Classes, Strings and List<>
 Created:    02-Mar-2015
 Purpose:	The class below defines a fish as sampled for scientific research.
  *          (I work for the CA Dept Fish and Wildlife). Data collected on Fish are
- *          Common name, length (in centimeters), weight (in grams), date of capture
+ *          Common name, length (in centimeters), weight (in kilograms), date of capture
  *          (when the fish was caught), tag number (of the tag affixed to the fish),
  *          and gear type (method used to catch fish; e.g., nets, hook and line).
  *          
@@ -153,21 +153,24 @@ namespace Lab3
 
         #endregion Constructors
 
-
-        // add methods here (override tostring)
-
+        #region Methods
+        /// <summary>
+        /// Displays output in tabular format
+        /// </summary>
+        /// <returns>capture data about a fish</returns>
         public override string ToString()
         {
             // declare variable
             string tabularFormat = String.Empty;
 
             // assign tabularFormat to custom output
-            tabularFormat = String.Format("{0,-20}", CommonName);
+            tabularFormat = String.Format("{0,-20}{1,5}{2,12}{3,15:MM-dd-yyyy}{4,12}{5,13}",
+                CommonName, TotalLength, Weight, CaptureDate, TagNumber, GearType);
 
+            // method output
             return tabularFormat;
         }
-
-
+        #endregion Methods
 
     } // end Fish class
 }
