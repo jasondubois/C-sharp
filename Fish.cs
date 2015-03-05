@@ -45,7 +45,16 @@ namespace Lab3
             }
             set
             {
-                m_CommonName = value;
+                if (value == "Unk" || value == "Sturgeon" || value == "Salmon")
+                {
+                    m_CommonName = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Common name must be either Sturgeon " +
+                        "or Salmon. Enter Unk if unknown.", "CommonName");
+                }
+                
             }
         }
 
@@ -60,7 +69,7 @@ namespace Lab3
             }
             set
             {
-                if(value == 0 || (value >= 100 && value <= 200))
+                if(value == 0 || (value >= 100 & value <= 200))
                 {
                     m_TotalLength = value;
                 }
@@ -83,7 +92,15 @@ namespace Lab3
             }
             set
             {
-                m_Weight = value;
+                if (value == 0 || (value >= 5 & value <= 100))
+                {
+                    m_Weight = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Weight must be either 0 (no weight) or " +
+                        "between 5 and 100", "Weight");
+                }
             }
         }
 
@@ -98,7 +115,16 @@ namespace Lab3
             }
             set
             {
-                m_CaptureDate = value;
+                if(value <= DateTime.Now)
+                {
+                    m_CaptureDate = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Capture date cannot be greater than " +
+                        "today.", "CaptureDate");
+                }
+                
             }
         }
 
@@ -113,7 +139,15 @@ namespace Lab3
             }
             set
             {
-                m_TagNumber = value;
+                if (value == "Unk" || value.StartsWith("HH") || value.StartsWith("FF"))
+                {
+                    m_TagNumber = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Tag number must begin with " +
+                        "FF or HH. Enter Unk if unknown.", "TagNumber");
+                }
             }
         }
 
@@ -128,23 +162,43 @@ namespace Lab3
             }
             set
             {
-                m_GearType = value;
+                if (value == "Unk" || value == "trammel" || value == "gill")
+                {
+                    m_GearType = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Gear type must be either trammel " +
+                        "or gill. Enter Unk if unknown.", "GearType");
+                }
             }
         }
         #endregion Properties
 
         #region Constructors
+        /// <summary>
+        /// Default contructor with default values
+        /// </summary>
         public Fish()
         {
-            // assign properties as empty
-            CommonName = String.Empty;
+            // assign properties to a default; Unk = unknown
+            CommonName = "Unk";
             TotalLength = 0;
             Weight = 0;
             CaptureDate = DateTime.Now;
-            TagNumber = String.Empty;
-            GearType = String.Empty;
+            TagNumber = "Unk";
+            GearType = "Unk";
         }
 
+        /// <summary>
+        /// Constructor accepts six arguments
+        /// </summary>
+        /// <param name="commonName"></param>
+        /// <param name="totalLength"></param>
+        /// <param name="weight"></param>
+        /// <param name="captureDate"></param>
+        /// <param name="tagNumber"></param>
+        /// <param name="gearType"></param>
         public Fish(string commonName, int totalLength, double weight,
             DateTime captureDate, string tagNumber, string gearType)
         {
@@ -157,8 +211,19 @@ namespace Lab3
             GearType = gearType;
         }
 
-        // add copy constructor here
-
+        /// <summary>
+        /// The copy constructor
+        /// </summary>
+        /// <param name="anotherFish"></param>
+        public Fish(Fish anotherFish)
+        {
+            CommonName = anotherFish.CommonName;
+            TotalLength = anotherFish.TotalLength;
+            Weight = anotherFish.Weight;
+            CaptureDate = anotherFish.CaptureDate;
+            TagNumber = anotherFish.TagNumber;
+            GearType = anotherFish.GearType;
+        }
         #endregion Constructors
 
         #region Methods
@@ -179,6 +244,5 @@ namespace Lab3
             return tabularFormat;
         }
         #endregion Methods
-
     } // end Fish class
 }
